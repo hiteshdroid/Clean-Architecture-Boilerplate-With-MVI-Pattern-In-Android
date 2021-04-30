@@ -1,0 +1,3 @@
+include ':coreFramework'
+include ':app'
+rootProject.name = "CleanArchitectureBoilerplate"
