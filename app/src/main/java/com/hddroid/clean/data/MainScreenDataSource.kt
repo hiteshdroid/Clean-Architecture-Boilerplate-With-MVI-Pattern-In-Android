@@ -7,11 +7,10 @@ import com.hddroid.clean.domain.model.LaunchScreenParams
 import com.hddroid.clean.domain.model.LaunchScreenResult
 import kotlinx.coroutines.delay
 
-class MainScreenDataSource:
-    LaunchScreenDataRepository {
-    override suspend fun loadData(requestParams: LaunchScreenParams?): AsyncResult<LaunchScreenResult, LaunchScreenExceptions> {
+class MainScreenDataSource: LaunchScreenDataRepository {
+
+    override suspend fun loadData(): AsyncResult<LaunchScreenResult, LaunchScreenExceptions> {
         delay(2000)
         return AsyncResult.Success(LaunchScreenResult.SuccessResult("Finally, Hello World"))
-        //return AsyncResult.Failure(LaunchScreenExceptions.DataFetchException)
     }
 }

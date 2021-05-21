@@ -7,6 +7,7 @@ import com.hddroid.clean.data.MainScreenDataSource
 import com.hddroid.clean.data.MainTranslationService
 import com.hddroid.clean.databinding.MainActivityBinding
 import com.hddroid.clean.domain.usecase.GetLaunchScreenData
+import com.hddroid.clean.domain.usecase.GetLaunchScreenDataWithParams
 import com.hddroid.clean.presentation.intent.MainActivityViewEffect
 import com.hddroid.clean.presentation.intent.MainActivityViewEvent
 import com.hddroid.clean.presentation.intent.MainActivityViewState
@@ -31,7 +32,7 @@ class MainActivity :BaseActivity<MainActivityViewEvent, MainActivityViewState, M
     override fun getViewModel(): MainActivityViewModel {
         viewModel = ViewModelProvider(this,
             MainActivityViewModelFactory(
-                GetLaunchScreenData(
+                GetLaunchScreenDataWithParams(
                     MainScreenDataSource(),
                     MainTranslationService()
                 )

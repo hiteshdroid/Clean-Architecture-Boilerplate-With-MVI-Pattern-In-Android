@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.hddroid.clean.core.domain.usecase.UseCaseHandler
 import com.hddroid.clean.core.presentation.viewmodel.BaseViewModelWithEffect
 import com.hddroid.clean.domain.usecase.GetLaunchScreenData
-import com.hddroid.clean.domain.model.LaunchScreenParams
 import com.hddroid.clean.domain.model.LaunchScreenResult
+import com.hddroid.clean.domain.usecase.GetLaunchScreenDataWithParams
 import com.hddroid.clean.presentation.intent.MainActivityViewEffect
 import com.hddroid.clean.presentation.intent.MainActivityViewEvent
 import com.hddroid.clean.presentation.intent.MainActivityViewState
@@ -15,7 +15,7 @@ import com.hddroid.clean.presentation.model.MainErrorUIModel
 import com.hddroid.clean.presentation.model.MainUIDisplayModel
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel(private val loadLaunchScreenUseCase: GetLaunchScreenData)
+class MainActivityViewModel(private val loadLaunchScreenUseCase: GetLaunchScreenDataWithParams)
     : BaseViewModelWithEffect<MainActivityViewEvent, MainActivityViewState, MainActivityViewEffect>(
     MainActivityViewState.LoadingState
 ) {
@@ -24,9 +24,7 @@ class MainActivityViewModel(private val loadLaunchScreenUseCase: GetLaunchScreen
             MainActivityViewEvent.OnScreenLoad -> {
                 viewModelScope.launch {
                     kotlin.runCatching {
-                        UseCaseHandler<LaunchScreenParams, LaunchScreenResult>().execute(loadLaunchScreenUseCase,
-                            LaunchScreenParams()
-                        )
+                        UseCaseHandler<LaunchScreenResult>().execute(loadLaunchScreenUseCase)
                     }.onSuccess {
                         when (it) {
                             is LaunchScreenResult.SuccessResult -> {
@@ -73,7 +71,7 @@ class MainActivityViewModel(private val loadLaunchScreenUseCase: GetLaunchScreen
     }
 }
 
-class MainActivityViewModelFactory constructor(private val loadLaunchScreenUseCase: GetLaunchScreenData): ViewModelProvider.Factory {
+class MainActivityViewModelFactory constructor(private val loadLaunchScreenUseCase: GetLaunchScreenDataWithParams): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(MainActivityViewModel::class.java)) {
             MainActivityViewModel(

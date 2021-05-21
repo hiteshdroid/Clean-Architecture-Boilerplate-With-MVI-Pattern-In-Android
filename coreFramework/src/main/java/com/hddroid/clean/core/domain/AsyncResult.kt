@@ -1,6 +1,6 @@
 package com.hddroid.clean.core.domain
 
-sealed class AsyncResult<R, E> {
-    data class Success<R, E>(val value: R): AsyncResult<R, E>()
-    data class Failure<R, E>(val throwable: E): AsyncResult<R, E>()
+sealed class AsyncResult<out T : Any, out E : CustomExceptions> {
+    data class Success<out T : Any>(val data: T) : AsyncResult<T, Nothing>()
+    data class Failure<out E : CustomExceptions>(val exception: E) : AsyncResult<Nothing, E>()
 }
