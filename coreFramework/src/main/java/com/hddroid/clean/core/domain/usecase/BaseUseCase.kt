@@ -1,14 +1,7 @@
 package com.hddroid.clean.core.domain.usecase
 
-import com.hddroid.clean.core.domain.model.BaseDomainModel
-import com.hddroid.clean.core.domain.model.wrapper.ResultWrapper
-import com.hddroid.clean.core.domain.repository.BaseRepository
+import com.hddroid.clean.core.domain.AsyncResult
 
-abstract class BaseUseCase<Entity: BaseDomainModel, Repository: BaseRepository<Entity>> {
-
-    abstract val repository: Repository
-
-    suspend operator fun invoke() : ResultWrapper<Entity> {
-        return repository.invoke()
-    }
+interface BaseUseCase<P: UseCaseParams, R: UseCaseResult> {
+   suspend operator fun invoke(requestParams: P? = null): AsyncResult<R>
 }

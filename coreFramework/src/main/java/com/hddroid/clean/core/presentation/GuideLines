@@ -1,0 +1,66 @@
+
+
+BaseView
+        BaseViewWithEffect
+
+
+BaseViewModel
+        BaseViewModelWithEffect
+
+
+
+1. Create 3 sealed classes
+sealed class NewSplashViewState: CoreViewState {
+    object Initial: NewSplashViewState()
+    object Loading: NewSplashViewState()
+    data class Display(val displayMessage: String): NewSplashViewState()
+    data class Error(val errorMessage: String): NewSplashViewState()
+}
+
+sealed class NewSplashViewEffect: CoreViewEffect {
+
+}
+
+sealed class NewSplashViewEvent: CoreViewEvent {
+
+}
+
+2. Implement BaseViewWithEffect interface in your activity/fragment/customviews
+
+class NewSplashActivity: AppCompatActivity(), BaseViewWithEffect<NewSplashViewEvent, NewSplashViewState, NewSplashViewEffect, SplashViewModel<>>
+
+3. Create a view model for the view and implement the BaseViewModelWithEffect interface
+
+class SplashViewModel: BaseViewModelWithEffect<NewSplashViewEvent, NewSplashViewState, NewSplashViewEffect>(NewSplashViewState.Initial) {
+    override fun processEvent(event: NewSplashViewEvent) {
+        TODO("Not yet implemented")
+    }
+
+}
+
+4. Add an initial state for the view state and also the other states for the view
+sealed class NewSplashViewState: CoreViewState {
+    object Initial: NewSplashViewState()
+    object Loading: NewSplashViewState()
+    data class Display(val displayMessage: String): NewSplashViewState()
+    data class Error(val errorMessage: String): NewSplashViewState()
+}
+
+5. Identify the user interactions(implicit/explicit) and effects in your screen inside the NewSplashViewEvent and NewSplashViewEffect
+
+implicit (without user interaction you will need e.g load list on screen load, call some config api on screen load)
+        explicit (button click, back click, menu click etc etc)
+
+sealed class NewSplashViewEvent: CoreViewEvent {
+    object LoadConfigData: NewSplashViewEvent()
+}
+
+sealed class NewSplashViewEffect: CoreViewEffect {
+    object ExitApp: NewSplashViewEffect()
+}
+
+6. From the View pass the life cycle owner onLifecycleOwnerAttached(this)
+
+7. Call the processEvent(NewSplashViewEvent.LoadConfigData) of the viewModel
+
+8. From the viewModel handle the events and setViewState(NewSplashViewState) or setViewEffect(NewSplashViewEffect)
