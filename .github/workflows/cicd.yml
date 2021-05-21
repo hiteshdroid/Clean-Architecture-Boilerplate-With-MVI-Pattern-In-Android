@@ -29,14 +29,11 @@ jobs:
       - name: Test
         run: bash ./gradlew test
 
-      # assemble
-      - name: Build
-        run: bash ./gradlew clean app:assembleDebug --stacktrace
-          
-      # Runs a set of commands using the runners shell
-      - name: Publish
-        uses: actions/download-artifact@v2.0.9
+      - name: Build Debug APK
+        run: bash ./gradlew :app:assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
         with:
-          # Artifacts
-          name: apk
+          name: App
           path: ${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk
