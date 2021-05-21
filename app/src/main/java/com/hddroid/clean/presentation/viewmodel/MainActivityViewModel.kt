@@ -37,7 +37,6 @@ class MainActivityViewModel(private val loadLaunchScreenUseCase: GetLaunchScreen
                                         )
                                     )
                                 )
-                                setViewEffect(MainActivityViewEffect.HideError)
                                 setViewEffect(MainActivityViewEffect.HideLoader)
                             }
                             is LaunchScreenResult.ErrorResult -> {

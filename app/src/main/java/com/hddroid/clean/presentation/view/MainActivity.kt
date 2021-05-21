@@ -1,30 +1,26 @@
 package com.hddroid.clean.presentation.view
 
 import android.os.Bundle
-import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.hddroid.clean.R
-import com.hddroid.clean.core.presentation.view.BaseViewWithEffect
 import com.hddroid.clean.data.MainScreenDataSource
 import com.hddroid.clean.data.MainTranslationService
+import com.hddroid.clean.databinding.MainActivityBinding
 import com.hddroid.clean.domain.usecase.GetLaunchScreenData
 import com.hddroid.clean.presentation.intent.MainActivityViewEffect
 import com.hddroid.clean.presentation.intent.MainActivityViewEvent
 import com.hddroid.clean.presentation.intent.MainActivityViewState
+import com.hddroid.clean.presentation.model.MainErrorUIModel
+import com.hddroid.clean.presentation.model.MainUIDisplayModel
+import com.hddroid.clean.presentation.view.base.BaseActivity
 import com.hddroid.clean.presentation.viewmodel.MainActivityViewModel
 import com.hddroid.clean.presentation.viewmodel.MainActivityViewModelFactory
 
-class MainActivity : AppCompatActivity(), BaseViewWithEffect<MainActivityViewEvent, MainActivityViewState, MainActivityViewEffect, MainActivityViewModel> {
+class MainActivity :BaseActivity<MainActivityViewEvent, MainActivityViewState, MainActivityViewEffect, MainActivityViewModel, MainActivityBinding>() {
     private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        onLifecycleOwnerAttached(this)
         viewModel.processEvent(MainActivityViewEvent.OnScreenLoad)
     }
 
@@ -46,41 +42,38 @@ class MainActivity : AppCompatActivity(), BaseViewWithEffect<MainActivityViewEve
 
     override fun renderViewState(viewState: MainActivityViewState) {
         when (viewState) {
-            MainActivityViewState.LoadingState -> showLoader()
-            is MainActivityViewState.DisplayState -> displayContent(viewState.displayModel.screenContent)
-            is MainActivityViewState.ErrorState -> displayError(viewState.errorModel.header, viewState.errorModel.title, viewState.errorModel.message)
+            MainActivityViewState.LoadingState -> bindLoader(true)
+            is MainActivityViewState.DisplayState -> {
+                bindDisplayData(viewState.displayModel)
+            }
+            is MainActivityViewState.ErrorState -> {
+                bindErrorData(viewState.errorModel)
+            }
         }
     }
 
-    private fun displayError(header: String?, title: String?, message: String?) {
-        findViewById<ConstraintLayout>(R.id.error_layout).visibility = View.VISIBLE
-        findViewById<TextView>(R.id.header).text = header
-        findViewById<TextView>(R.id.title).text = title
-        findViewById<TextView>(R.id.message).text = message
+    private fun bindErrorData(errorModel: MainErrorUIModel) {
+        viewBinding.errorModel = errorModel
+        executePendingBindings()
     }
 
-    private fun hideError() {
-        findViewById<ConstraintLayout>(R.id.error_layout).visibility = View.GONE
+    private fun bindLoader(showLoader: Boolean) {
+        viewBinding.showLoader = showLoader
+        executePendingBindings()
     }
 
-    private fun displayContent(screenContent: String) {
-        findViewById<TextView>(R.id.content).visibility = View.VISIBLE
-        findViewById<TextView>(R.id.content).text = screenContent
+    private fun bindDisplayData(displayModel: MainUIDisplayModel) {
+        viewBinding.displayModel = displayModel
+        executePendingBindings()
     }
 
-    private fun showLoader() {
-        findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
-    }
-
-    private fun hideLoader() {
-        findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
-    }
-
-    override fun renderViewEffects(viewNavigation: MainActivityViewEffect) {
-        when (viewNavigation) {
+    override fun renderViewEffects(viewEffects: MainActivityViewEffect) {
+        when (viewEffects) {
             MainActivityViewEffect.Exit -> finish()
-            MainActivityViewEffect.HideLoader -> hideLoader()
-            MainActivityViewEffect.HideError -> hideError()
+            MainActivityViewEffect.ShowLoader -> bindLoader(true)
+            MainActivityViewEffect.HideLoader -> bindLoader(false)
         }
     }
+
+    override fun getLayout() = R.layout.main_activity
 }
