@@ -39,4 +39,4 @@ jobs:
         with:
           # Artifacts
           name: apk
-          path: app/build/outputs/apk/debug/app-debug.apk 
+          path: ${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk
