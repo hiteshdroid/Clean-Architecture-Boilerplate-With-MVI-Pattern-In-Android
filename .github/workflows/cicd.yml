@@ -24,13 +24,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      # test
+      - name: Test
+        run: bash ./gradlew test
 
       # assemble
       - name: Build
         run: bash ./gradlew clean app:assembleDebug --stacktrace
-      # test
-      - name: Test
-        run: bash ./gradlew test
           
       # Runs a set of commands using the runners shell
       - name: Publish
