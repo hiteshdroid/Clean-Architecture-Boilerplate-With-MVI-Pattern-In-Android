@@ -1,11 +1,11 @@
 package com.hddroid.clean.core.domain.usecase
 
-abstract class BaseUseCaseWithParams<P: UseCaseParams, R: UseCaseResult>: BaseUseCase<R>() {
-   final override suspend fun invoke(): R {
+abstract class BaseUseCaseWithParams<Params, out Result>: BaseUseCase<Result>() {
+   final override suspend fun invoke(): Result {
       return invoke(getRequestParams())
    }
 
-   abstract fun getRequestParams(): P
+   abstract fun getRequestParams(): Params
 
-   abstract suspend fun invoke(params: P): R
+   abstract suspend fun invoke(params: Params): Result
 }

@@ -1,6 +1,6 @@
 package com.hddroid.clean.domain.usecase
 
-import com.hddroid.clean.core.domain.AsyncResult
+import com.hddroid.clean.core.domain.entity.wrapper.ResultWrapper
 import com.hddroid.clean.core.domain.usecase.BaseUseCase
 import com.hddroid.clean.domain.Constants
 import com.hddroid.clean.domain.model.LaunchScreenExceptions
@@ -15,8 +15,8 @@ class GetLaunchScreenData(
 
     override suspend fun invoke(): LaunchScreenResult {
         return when (val result = launchScreenDataRepository.loadData()) {
-            is AsyncResult.Success -> result.data
-            is AsyncResult.Failure -> createErrorResult(result.exception)
+            is ResultWrapper.Success -> result.data
+            is ResultWrapper.Failure -> createErrorResult(result.exception)
         }
     }
 

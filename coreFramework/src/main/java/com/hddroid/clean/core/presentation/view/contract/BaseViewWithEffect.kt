@@ -1,9 +1,8 @@
-package com.hddroid.clean.core.presentation.view
+package com.hddroid.clean.core.presentation.view.contract
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.hddroid.clean.core.presentation.view.contract.ViewWithEffectContract
 import com.hddroid.clean.core.presentation.viewmodel.BaseViewModelWithEffect
 import com.hddroid.clean.core.presentation.viewmodel.intent.CoreViewEffect
 import com.hddroid.clean.core.presentation.viewmodel.intent.CoreViewEvent

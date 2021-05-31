@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.hddroid.clean.core.domain.usecase.UseCaseHandler
 import com.hddroid.clean.core.presentation.viewmodel.BaseViewModelWithEffect
-import com.hddroid.clean.domain.usecase.GetLaunchScreenData
 import com.hddroid.clean.domain.model.LaunchScreenResult
 import com.hddroid.clean.domain.usecase.GetLaunchScreenDataWithParams
 import com.hddroid.clean.presentation.intent.MainActivityViewEffect
@@ -24,7 +23,7 @@ class MainActivityViewModel(private val loadLaunchScreenUseCase: GetLaunchScreen
             MainActivityViewEvent.OnScreenLoad -> {
                 viewModelScope.launch {
                     kotlin.runCatching {
-                        UseCaseHandler<LaunchScreenResult>().execute(loadLaunchScreenUseCase)
+                        UseCaseHandler().execute(loadLaunchScreenUseCase)
                     }.onSuccess {
                         when (it) {
                             is LaunchScreenResult.SuccessResult -> {

@@ -2,12 +2,10 @@ package com.hddroid.clean.presentation.view
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.hddroid.clean.MainApplication
 import com.hddroid.clean.R
-import com.hddroid.clean.data.MainScreenDataSource
-import com.hddroid.clean.data.MainTranslationService
 import com.hddroid.clean.databinding.MainActivityBinding
-import com.hddroid.clean.domain.usecase.GetLaunchScreenData
-import com.hddroid.clean.domain.usecase.GetLaunchScreenDataWithParams
+import com.hddroid.clean.di.InfraProvider
 import com.hddroid.clean.presentation.intent.MainActivityViewEffect
 import com.hddroid.clean.presentation.intent.MainActivityViewEvent
 import com.hddroid.clean.presentation.intent.MainActivityViewState
@@ -15,9 +13,9 @@ import com.hddroid.clean.presentation.model.MainErrorUIModel
 import com.hddroid.clean.presentation.model.MainUIDisplayModel
 import com.hddroid.clean.presentation.view.base.BaseActivity
 import com.hddroid.clean.presentation.viewmodel.MainActivityViewModel
-import com.hddroid.clean.presentation.viewmodel.MainActivityViewModelFactory
 
 class MainActivity :BaseActivity<MainActivityViewEvent, MainActivityViewState, MainActivityViewEffect, MainActivityViewModel, MainActivityBinding>() {
+
     private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +28,7 @@ class MainActivity :BaseActivity<MainActivityViewEvent, MainActivityViewState, M
     }
 
     override fun getViewModel(): MainActivityViewModel {
-        viewModel = ViewModelProvider(this,
-            MainActivityViewModelFactory(
-                GetLaunchScreenDataWithParams(
-                    MainScreenDataSource(),
-                    MainTranslationService()
-                )
-            )
-        ).get(MainActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this, infraProvider.mainViewModelFactory.value).get(MainActivityViewModel::class.java)
         return viewModel
     }
 
