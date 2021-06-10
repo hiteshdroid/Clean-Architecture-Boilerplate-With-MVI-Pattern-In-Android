@@ -53,4 +53,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     // Lifecycles only (without ViewModel or LiveData)
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+
+    lintChecks project(':lintrules')
 }
