@@ -1,15 +1,12 @@
 package com.hddroid.clean
 
 import android.app.Application
-import com.hddroid.clean.di.InfraProviderImpl
+import com.hddroid.clean.di.module.KoinDI
 
 class MainApplication: Application() {
-    private lateinit var infraProvider: InfraProviderImpl
 
     override fun onCreate() {
         super.onCreate()
-        infraProvider = InfraProviderImpl(this)
+        KoinDI.init(this)
     }
-
-    fun getInfraProvider() = infraProvider
 }
