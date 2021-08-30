@@ -6,7 +6,7 @@ import org.koin.core.context.startKoin
 
 object InfraProvider {
     @JvmStatic
-    fun init(app: MainApplication) {
+    fun initKoin(app: MainApplication) {
         app.apply {
             startKoin {
                 androidContext(this@apply)
