@@ -1,11 +1,8 @@
 package com.hddroid.clean.presentation.view
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import com.hddroid.clean.MainApplication
 import com.hddroid.clean.R
 import com.hddroid.clean.databinding.MainActivityBinding
-import com.hddroid.clean.di.InfraProvider
 import com.hddroid.clean.presentation.intent.MainActivityViewEffect
 import com.hddroid.clean.presentation.intent.MainActivityViewEvent
 import com.hddroid.clean.presentation.intent.MainActivityViewState
@@ -13,23 +10,24 @@ import com.hddroid.clean.presentation.model.MainErrorUIModel
 import com.hddroid.clean.presentation.model.MainUIDisplayModel
 import com.hddroid.clean.presentation.view.base.BaseActivity
 import com.hddroid.clean.presentation.viewmodel.MainActivityViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity :BaseActivity<MainActivityViewEvent, MainActivityViewState, MainActivityViewEffect, MainActivityViewModel, MainActivityBinding>() {
+class MainActivity :
+    BaseActivity<MainActivityViewEvent, MainActivityViewState, MainActivityViewEffect, MainActivityViewModel, MainActivityBinding>() {
 
-    private lateinit var viewModel: MainActivityViewModel
+    private val mainActivityViewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.processEvent(MainActivityViewEvent.OnScreenLoad)
+        mainActivityViewModel.processEvent(MainActivityViewEvent.OnScreenLoad)
     }
 
     override fun onBackPressed() {
-        viewModel.processEvent(MainActivityViewEvent.OnBackPressed)
+        mainActivityViewModel.processEvent(MainActivityViewEvent.OnBackPressed)
     }
 
     override fun getViewModel(): MainActivityViewModel {
-        viewModel = ViewModelProvider(this, infraProvider.mainViewModelFactory.value).get(MainActivityViewModel::class.java)
-        return viewModel
+        return mainActivityViewModel
     }
 
     override fun renderViewState(viewState: MainActivityViewState) {
