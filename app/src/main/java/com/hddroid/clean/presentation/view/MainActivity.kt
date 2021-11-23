@@ -1,7 +1,10 @@
 package com.hddroid.clean.presentation.view
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hddroid.clean.R
+import com.hddroid.clean.core.presentation.view.adapter.custom.*
 import com.hddroid.clean.databinding.MainActivityBinding
 import com.hddroid.clean.presentation.intent.MainActivityViewEffect
 import com.hddroid.clean.presentation.intent.MainActivityViewEvent
@@ -20,6 +23,16 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivityViewModel.processEvent(MainActivityViewEvent.OnScreenLoad)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+        viewBinding.recyclerView.layoutManager = layoutManager
+        val customAdapter = CustomAdapter(CustomViewHolderFactory())
+        viewBinding.recyclerView.adapter = customAdapter
+        val list = mutableListOf<CustomAdapterItem>()
+        list.add(CustomAdapterItem(CustomAdapterType.Primary, CustomAdapterModel.PrimaryModel("Primary 1")))
+        list.add(CustomAdapterItem(CustomAdapterType.Secondary, CustomAdapterModel.SecondaryModel(1)))
+        list.add(CustomAdapterItem(CustomAdapterType.Primary, CustomAdapterModel.PrimaryModel("Primary 2")))
+        list.add(CustomAdapterItem(CustomAdapterType.Secondary, CustomAdapterModel.SecondaryModel(2)))
+        customAdapter.setData(list)
     }
 
     override fun onBackPressed() {
