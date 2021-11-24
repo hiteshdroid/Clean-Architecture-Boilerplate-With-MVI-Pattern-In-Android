@@ -1,4 +1,4 @@
-package com.hddroid.clean.core.presentation.view.adapter.base
+package com.hddroid.clean.core.presentation.view.base.adapter
 
 interface AdapterItem<T, D> {
     val type: T

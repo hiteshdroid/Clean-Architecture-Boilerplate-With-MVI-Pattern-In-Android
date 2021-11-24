@@ -2,7 +2,7 @@ package com.hddroid.clean.presentation.view.adapter.custom
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hddroid.clean.core.presentation.view.adapter.base.BaseViewHolder
+import com.hddroid.clean.core.presentation.view.base.adapter.BaseViewHolder
 
 class CustomAdapter(
     private val viewHolderFactory: CustomViewHolderFactory

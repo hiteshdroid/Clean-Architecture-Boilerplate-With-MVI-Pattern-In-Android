@@ -3,9 +3,9 @@ package com.hddroid.clean.presentation.view.adapter.custom
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.hddroid.clean.R
-import com.hddroid.clean.core.presentation.view.adapter.base.AdapterItem
-import com.hddroid.clean.core.presentation.view.adapter.base.BaseViewHolder
-import com.hddroid.clean.core.presentation.view.adapter.base.ViewHolderFactory
+import com.hddroid.clean.core.presentation.view.base.adapter.AdapterItem
+import com.hddroid.clean.core.presentation.view.base.adapter.BaseViewHolder
+import com.hddroid.clean.core.presentation.view.base.adapter.ViewHolderFactory
 import com.hddroid.clean.databinding.PrimaryBinding
 import com.hddroid.clean.databinding.SecondaryBinding
 import com.hddroid.clean.databinding.TertiaryBinding
