@@ -12,6 +12,7 @@ class CustomViewHolderFactory: ViewHolderFactory<CustomAdapterType, CustomAdapte
         return when(item.type) {
             CustomAdapterType.Primary -> R.layout.primary
             CustomAdapterType.Secondary -> R.layout.secondary
+            CustomAdapterType.Tertiary -> R.layout.tertiary
         }
     }
 
@@ -19,16 +20,17 @@ class CustomViewHolderFactory: ViewHolderFactory<CustomAdapterType, CustomAdapte
         parent: ViewGroup,
         viewType: Int
     ): BaseViewHolder<CustomAdapterType, CustomAdapterModel> {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val viewForHolder = layoutInflater.inflate(viewType, parent, false)
         return when(viewType) {
             R.layout.primary -> {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val viewForHolder = layoutInflater.inflate(viewType, parent, false)
                 PrimaryViewHolder(viewForHolder)
             }
-            else -> {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val viewForHolder = layoutInflater.inflate(viewType, parent, false)
+            R.layout.secondary -> {
                 SecondaryViewHolder(viewForHolder)
+            }
+            else -> {
+                TertiaryViewHolder(viewForHolder)
             }
         } as BaseViewHolder<CustomAdapterType, CustomAdapterModel>
     }

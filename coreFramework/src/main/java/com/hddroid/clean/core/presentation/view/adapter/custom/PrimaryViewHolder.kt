@@ -6,9 +6,9 @@ import com.hddroid.clean.core.R
 import com.hddroid.clean.core.presentation.view.adapter.base.AdapterItem
 import com.hddroid.clean.core.presentation.view.adapter.base.BaseViewHolder
 
-class PrimaryViewHolder(view: View): BaseViewHolder<CustomAdapterType.Primary, CustomAdapterModel.PrimaryModel>(view) {
+class PrimaryViewHolder(view: View): BaseViewHolder<CustomAdapterType.Primary, CustomAdapterModel.Primary>(view) {
     private val textView = view.findViewById<TextView>(R.id.titleView)
-    override fun bind(data: AdapterItem<CustomAdapterType.Primary, CustomAdapterModel.PrimaryModel>) {
+    override fun bind(data: AdapterItem<CustomAdapterType.Primary, CustomAdapterModel.Primary>) {
         textView.text = data.dataModel.someString
     }
 }

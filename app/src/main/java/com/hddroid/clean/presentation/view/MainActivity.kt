@@ -28,10 +28,11 @@ class MainActivity :
         val customAdapter = CustomAdapter(CustomViewHolderFactory())
         viewBinding.recyclerView.adapter = customAdapter
         val list = mutableListOf<CustomAdapterItem>()
-        list.add(CustomAdapterItem(CustomAdapterType.Primary, CustomAdapterModel.PrimaryModel("Primary 1")))
-        list.add(CustomAdapterItem(CustomAdapterType.Secondary, CustomAdapterModel.SecondaryModel(1)))
-        list.add(CustomAdapterItem(CustomAdapterType.Primary, CustomAdapterModel.PrimaryModel("Primary 2")))
-        list.add(CustomAdapterItem(CustomAdapterType.Secondary, CustomAdapterModel.SecondaryModel(2)))
+        list.add(CustomAdapterItem(CustomAdapterType.Primary, CustomAdapterModel.Primary("Primary 1")))
+        list.add(CustomAdapterItem(CustomAdapterType.Secondary, CustomAdapterModel.Secondary(1)))
+        list.add(CustomAdapterItem(CustomAdapterType.Primary, CustomAdapterModel.Primary("Primary 2")))
+        list.add(CustomAdapterItem(CustomAdapterType.Tertiary, CustomAdapterModel.Tertiary(2.5F)))
+        list.add(CustomAdapterItem(CustomAdapterType.Secondary, CustomAdapterModel.Secondary(2)))
         customAdapter.setData(list)
     }
 
