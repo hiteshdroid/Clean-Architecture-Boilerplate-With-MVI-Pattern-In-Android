@@ -1,4 +1,4 @@
-package com.hddroid.clean.core.presentation.view.adapter.custom
+package com.hddroid.clean.presentation.view.adapter.custom
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

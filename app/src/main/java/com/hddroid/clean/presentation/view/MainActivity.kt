@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hddroid.clean.R
-import com.hddroid.clean.core.presentation.view.adapter.custom.*
+import com.hddroid.clean.presentation.view.adapter.custom.*
 import com.hddroid.clean.databinding.MainActivityBinding
 import com.hddroid.clean.presentation.intent.MainActivityViewEffect
 import com.hddroid.clean.presentation.intent.MainActivityViewEvent
